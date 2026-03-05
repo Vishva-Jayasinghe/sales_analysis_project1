@@ -1,40 +1,55 @@
-🛒 Retail Sales SQL Data Analysis Project
-📌 Project Overview
+[README_Retail_Sales_SQL_Project.md](https://github.com/user-attachments/files/25768947/README_Retail_Sales_SQL_Project.md)
+# 🛒 Retail Sales SQL Data Analysis Project
 
-This project analyzes retail sales data using SQL.
-The goal is to clean the dataset and answer key business questions to generate insights about:
+## 📌 Project Overview
 
-Sales performance
+This project analyzes retail sales data using SQL.\
+The goal is to clean the dataset and answer key business questions to
+generate insights about:
 
-Customer behavior
+-   Sales performance\
+-   Customer behavior\
+-   Category performance\
+-   Monthly trends
 
-Category performance
+This project demonstrates practical SQL skills required for a Data
+Analyst role.
 
-Monthly trends
+------------------------------------------------------------------------
 
-This project demonstrates real-world SQL skills required for a Data Analyst role.
+## 🗂 Dataset Information
 
-🗂 Dataset Information
+**Table Name:** `retail_sales`
 
-Table Name: retail_sales
+### 📊 Table Structure
 
-📊 Table Structure
-Column Name	Data Type
-transactions_id	INT (Primary Key)
-sale_date	DATE
-sale_time	TIME
-customer_id	INT
-gender	VARCHAR(10)
-age	INT
-category	VARCHAR(35)
-quantity	INT
-price_per_unit	FLOAT
-cogs	FLOAT
-total_sale	FLOAT
-🧹 Data Cleaning
-🔹 Drop Existing Table
+  Column Name       Data Type
+  ----------------- -------------------
+  transactions_id   INT (Primary Key)
+  sale_date         DATE
+  sale_time         TIME
+  customer_id       INT
+  gender            VARCHAR(10)
+  age               INT
+  category          VARCHAR(35)
+  quantity          INT
+  price_per_unit    FLOAT
+  cogs              FLOAT
+  total_sale        FLOAT
+
+------------------------------------------------------------------------
+
+# 🧹 Data Cleaning
+
+## Drop Existing Table
+
+``` sql
 DROP TABLE IF EXISTS retail_sales;
-🔹 Check for NULL Values
+```
+
+## Check for NULL Values
+
+``` sql
 SELECT *
 FROM retail_sales
 WHERE transactions_id IS NULL
@@ -46,7 +61,11 @@ WHERE transactions_id IS NULL
    OR quantity IS NULL
    OR cogs IS NULL
    OR total_sale IS NULL;
-🔹 Delete NULL Rows
+```
+
+## Delete NULL Rows
+
+``` sql
 DELETE FROM retail_sales
 WHERE transactions_id IS NULL
    OR sale_date IS NULL
@@ -57,39 +76,70 @@ WHERE transactions_id IS NULL
    OR quantity IS NULL
    OR cogs IS NULL
    OR total_sale IS NULL;
-📈 Business Questions & SQL Solutions
-Q1️⃣ Sales on 2022-11-05
+```
+
+------------------------------------------------------------------------
+
+# 📈 Business Questions & SQL Solutions
+
+## Q1: Sales on 2022-11-05
+
+``` sql
 SELECT *
 FROM retail_sales
 WHERE sale_date = '2022-11-05';
-Q2️⃣ Clothing Sales (Nov 2022, Quantity > 3)
+```
+
+## Q2: Clothing Sales (Nov 2022, Quantity \> 3)
+
+``` sql
 SELECT *
 FROM retail_sales
 WHERE category = 'Clothing'
   AND quantity > 3
   AND TO_CHAR(sale_date,'YYYY-MM') = '2022-11';
-Q3️⃣ Total Sales by Category
+```
+
+## Q3: Total Sales by Category
+
+``` sql
 SELECT category,
        SUM(total_sale) AS total_sale
 FROM retail_sales
 GROUP BY category
 ORDER BY total_sale;
-Q4️⃣ Average Age (Beauty Category)
+```
+
+## Q4: Average Age (Beauty Category)
+
+``` sql
 SELECT ROUND(AVG(age),3) AS avg_age
 FROM retail_sales
 WHERE category = 'Beauty';
-Q5️⃣ Transactions with Total Sale > 1000
+```
+
+## Q5: Transactions with Total Sale \> 1000
+
+``` sql
 SELECT transactions_id,
        total_sale
 FROM retail_sales
 WHERE total_sale > 1000;
-Q6️⃣ Transactions by Gender & Category
+```
+
+## Q6: Transactions by Gender & Category
+
+``` sql
 SELECT COUNT(*) AS no_of_transactions,
        gender,
        category
 FROM retail_sales
 GROUP BY gender, category;
-Q7️⃣ Best Selling Month in Each Year (Window Function)
+```
+
+## Q7: Best Selling Month in Each Year (Window Function)
+
+``` sql
 SELECT *
 FROM (
     SELECT EXTRACT(YEAR FROM sale_date) AS year,
@@ -103,19 +153,31 @@ FROM (
     GROUP BY year, month
 ) AS t
 WHERE rank = 1;
-Q8️⃣ Top 5 Customers by Total Sales
+```
+
+## Q8: Top 5 Customers by Total Sales
+
+``` sql
 SELECT customer_id,
        SUM(total_sale) AS total_sale
 FROM retail_sales
 GROUP BY customer_id
 ORDER BY total_sale DESC
 LIMIT 5;
-Q9️⃣ Unique Customers by Category
+```
+
+## Q9: Unique Customers by Category
+
+``` sql
 SELECT COUNT(DISTINCT customer_id) AS no_of_customers,
        category
 FROM retail_sales
 GROUP BY category;
-Q🔟 Sales by Shift (CTE + CASE)
+```
+
+## Q10: Sales by Shift (CTE + CASE)
+
+``` sql
 WITH hourly_sales AS (
     SELECT *,
         CASE 
@@ -129,28 +191,33 @@ SELECT shift,
        COUNT(*) AS total_orders
 FROM hourly_sales
 GROUP BY shift;
-🛠 Skills Demonstrated
+```
 
-Data Cleaning
+------------------------------------------------------------------------
 
-Filtering
+# 🛠 Skills Demonstrated
 
-Aggregations (SUM, AVG, COUNT)
+-   Data Cleaning\
+-   Filtering\
+-   Aggregations (SUM, AVG, COUNT)\
+-   GROUP BY\
+-   ORDER BY\
+-   Window Functions (RANK)\
+-   CTE (Common Table Expressions)\
+-   Date Functions\
+-   CASE Statements
 
-GROUP BY
+------------------------------------------------------------------------
 
-ORDER BY
+# 🚀 Tools Used
 
-Window Functions (RANK)
+-   PostgreSQL\
+-   SQL
 
-CTE (Common Table Expressions)
+------------------------------------------------------------------------
 
-Date Functions
+# 🎯 Conclusion
 
-CASE Statements
-
-🚀 Tools Used
-
-PostgreSQL
-
-SQL
+This project demonstrates strong foundational SQL skills including data
+cleaning, business question solving, aggregation, and analytical
+thinking using SQL.
