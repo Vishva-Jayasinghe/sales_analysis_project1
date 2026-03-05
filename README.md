@@ -1,30 +1,18 @@
-# sales_analysis_project1
 🛒 Retail Sales SQL Data Analysis Project
 📌 Project Overview
-
 This project focuses on analyzing retail sales data using SQL.
 The objective is to clean the dataset, explore key business questions, and generate insights related to sales performance, customer behavior, and product categories.
-
 This project demonstrates practical SQL skills required for a Data Analyst role, including:
-
 Data Cleaning
-
 Data Exploration
-
 Aggregations
-
 Grouping
-
 Window Functions
-
 Ranking
-
 Common Table Expressions (CTEs)
 
 🗂 Dataset Information
-
 Table Name: retail_sales
-
 📊 Table Structure
 Column Name	Data Type
 transactions_id	INT (Primary Key)
@@ -42,7 +30,6 @@ total_sale	FLOAT
 1️⃣ Removing Existing Table
 DROP TABLE IF EXISTS retail_sales;
 2️⃣ Handling NULL Values
-
 Checked for missing values in critical columns:
 
 SELECT *
@@ -56,7 +43,6 @@ WHERE transactions_id IS NULL
    OR quantity IS NULL
    OR cogs IS NULL
    OR total_sale IS NULL;
-
 Deleted rows containing NULL values:
 
 DELETE FROM retail_sales
